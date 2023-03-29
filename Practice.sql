@@ -102,3 +102,27 @@ BEGIN
 END
 
 EXEC usp_SumOfNums 1, 2
+
+
+
+
+-- Trigger
+
+CREATE TABLE EmployeeLogs (
+    Id INT PRIMARY KEY IDENTITY,
+    UserID INT,
+    Operation NVARCHAR(10),
+    Date DATETIME
+)
+
+CREATE TRIGGER trg_InsertEmployee ON Employees
+AFTER INSERT
+AS
+
+BEGIN
+    INSERT INTO EmployeeLogs
+    SELECT Id, 'Insert', GETDATE() FROM INSERTED
+END
+
+INSERT INTO Employees VALUES
+('Ibrahim', 'Aliyev', 27)
