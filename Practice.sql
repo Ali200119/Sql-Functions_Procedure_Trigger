@@ -61,3 +61,44 @@ BEGIN
 END
 
 SELECT dbo.GetCustomerCount()
+
+
+
+CREATE FUNCTION GetCustomerAverageAgeById(@id INT)
+RETURNS INT
+AS
+
+BEGIN
+    DECLARE @avgAge INT
+    SELECT @avgAge = AVG(Age) FROM Customers WHERE Id > @id
+    RETURN @avgAge
+END
+
+SELECT dbo.GetCustomerAverageAgeById(4) AS 'Average Age'
+
+
+
+
+-- Procedure
+
+CREATE PROCEDURE usp_SayHelloWorld
+AS
+
+BEGIN
+    PRINT 'Hello World'
+END
+
+EXEC usp_SayHelloWorld
+
+
+
+CREATE PROCEDURE usp_SumOfNums
+@num1 INT,
+@num2 INT
+AS
+
+BEGIN
+    PRINT @num1 + @num2
+END
+
+EXEC usp_SumOfNums 1, 2
